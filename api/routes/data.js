@@ -6,6 +6,12 @@ const { getClient } = require("../../");
 
 api.get("/", (req, res) => {
 	const client = getClient();
+
+    // Check if client and client.user are defined
+    if (!client || !client.user) {
+        return res.status(500).json({ error: "Client is not initialized or user data is unavailable." });
+    }
+
 	let data = {
 		name: client.user.username,
 		version: package.version,
